@@ -123,7 +123,7 @@ $hh="611";
 xx:
 if($hh=="621"){echo "Complete!!! \n";sleep(99999);}
 //$url = "https://excentiv.com/offerwall/?userid=43981&key=kMb1m7Rirq8Hpta06GcU";
-$url = "https://excentiv.com/offerwall?userid=155104&key=ywk1nBYibqD60Wzrox3L";
+$url = "https://excentiv.com/offerwall/?userid=48125&key=kMb1m7Rirq8Hpta06GcU";
 $of = ofer($url, 'GET');
 
 sleep(5);
