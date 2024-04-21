@@ -1,20 +1,37 @@
 <?php
 error_reporting(0);
 echo " HAPPY LOOTING!! \n";
-unlink('cookie.txt');
 
 
 
 
+
+$n=4;
+
+function getName($n) {
+    $characters = '0123456789';
+    $randomString = '';
+ 
+    for ($i = 0; $i < $n; $i++) {
+        $index = rand(0, strlen($characters) - 1);
+        $randomString .= $characters[$index];
+    }
+ 
+
+    return $randomString;
+}
+$mnk = getName($n);
 $rd = rand(0,999);
-$vvv = "Mozilla/5.0 (Linux; Android 13 QPR5; vivo 1915) AppleWebKit/537.36 (KHTML, like Gecko) Brave/117.0.5938.22 Mobile Safari/537.36/".$rd."";
+$vvv = "Mozilla/5.0 (Linux; Android ) AppleWebKit/501 (KHTML, like Gecko) Chrome Mobile Safari Brave/".$mnk."";
 
+$ipp = "95.85.118.226";
 
 function ofer($url, $method, $data = null) {
-	global $vvv;
+	global $ipp, $vvv;
     $header = array(
         "Host: excentiv.com",
         "content-type: application/x-www-form-urlencoded",
+        "X-Forwarded-For: ".$ipp."",
         "user-agent: ".$vvv.""
     );
     $ch = curl_init();
@@ -37,12 +54,13 @@ function ofer($url, $method, $data = null) {
 }
 
 function batt($url, $method, $data = null) {
-	global $vvv;
+	global $ipp, $vvv;
     $header = array(
         "Host: coins-battle.com",
         "upgrade-insecure-requests: 1",
         "content-type: application/x-www-form-urlencoded",
         "X-Requested-With: XMLHttpRequest",
+        "X-Forwarded-For: ".$ipp."",
         "user-agent: ".$vvv.""
     );
     //$proxy = 'http://jmdzpqpq:imrbe2ogb5md@2.56.119.93:5074';
@@ -69,7 +87,7 @@ function batt($url, $method, $data = null) {
 function solveCaptcha(){
 	global $vvv, $sit;
 a:
-$login = "http://sctg.xyz/in.php?key=sryKi9OUWF4Rfrl7w7oplqmk5QhRWosR&method=userrecaptcha&googlekey=".$sit."&json=1&pageurl=https://coins-battle.com/game/claimreward";
+$login = "http://sctg.xyz/in.php?key=Gjd5MbFADqP0DlrurYrAmdIlQ9owqctV|onlyxevil&method=userrecaptcha&googlekey=".$sit."&json=1&pageurl=https://coins-battle.com/game/claimreward";
 $ua[] = "User-Agent: ".$vvv."";
 $ua[] = "Content-Type: application/json";
 $ch = curl_init();
@@ -84,14 +102,14 @@ $re = json_decode($result);
 $id = $re->request;
 if($id==''){goto a;}
 c:
-$url = "http://sctg.xyz/res.php?key=sryKi9OUWF4Rfrl7w7oplqmk5QhRWosR&action=get&id=".$id."";
+$url = "http://sctg.xyz/res.php?key=Gjd5MbFADqP0DlrurYrAmdIlQ9owqctV|onlyxevil&action=get&id=".$id."";
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_HTTPHEADER, $ua);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-$proxy = 'socks5://ksnpkrah:rc5efxlxj6o4@188.74.210.207:6286';
+$proxy = 'socks5://qmtcntdo:cbgv6y2ve8cf@38.154.227.167:5868';
 curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
 curl_setopt($ch, CURLOPT_PROXY, $proxy);       
 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
@@ -111,29 +129,37 @@ return $captcha;
 
 $hh="617";
 xx:
-if($hh=="634"){echo "Complete!!! \n";sleep(99999);}
-//$url = "https://excentiv.com/offerwall/?userid=43981&key=kMb1m7Rirq8Hpta06GcU";
-$url = "https://excentiv.com/offerwall/?userid=f551ce96cb52&key=5eaQHDSVYcwbdACp6ZB7";
+unlink('cookie.txt');
+//$url = "https://excentiv.com/offerwall/?userid=96618&key=7wuDVWJmlOjadzyLYC9E";
+$url = "https://excentiv.com/offerwall?userid=9f3d9d672da7&key=5eaQHDSVYcwbdACp6ZB7";
 $of = ofer($url, 'GET');
 
 sleep(5);
 //if (strpos($of, "Games") === false) {echo" Game Hilang \n";sleep(99999);}
 $tokk = explode('"',explode('<button value="https://coins-battle.com?token=', $of)[1])[0];
-if($tokk==""){sleep(3);goto xx;}
+if($tokk==""){sleep(5);echo" Game Hilang \n";goto xx;}
 
 $url = "https://coins-battle.com/?token=".$tokk."";
 $bat = batt($url, 'GET');
 
 
+zz:
+if($hh=="634"){echo "Complete!!! \n";sleep(99999);}
 while(true):
+
 $url = "https://coins-battle.com/game/play/".$hh."";
 $btc = batt($url, 'GET');
+$con = explode(' </b>&nbsp;',explode('<b class="gradient-text">Website: ', $btc)[1])[0];
+if($con == ""){$hh=$hh;goto xx;}
+if(isset($con)) {
+    $dx="ON";
+}
 $sit = explode('"',explode('<div class="g-recaptcha" data-sitekey="', $btc)[1])[0];
 $idd = explode('">',explode('<input type="hidden" name="game_id" value="', $btc)[1])[0];
 $csf = explode('">',explode('<input type="hidden" name="csrf_token" value="', $btc)[1])[0];
 $tim = explode("';",explode("let ctimer = '", $btc)[1])[0];
 $lef = explode(' today',explode('<p><b>You have already play ', $btc)[1])[0];
-if($idd==""){goto xx;}
+
 
 $capv = solveCaptcha();
 
@@ -145,9 +171,9 @@ $suc = explode(', to continue earning',explode('<div class="alert text-center al
 date_default_timezone_set('Asia/Jakarta');
 $timestamp = time();
 $wak = date("[H:i]", $timestamp);
-if (strpos($suc, "obtained") !== false) {echo"".$wak." ID [".$hh."] $suc \n";}
+if (strpos($suc, "obtained") !== false) {echo"[".$dx."] ".$wak." ID [".$hh."] $suc \n";}
 
 sleep($tim);
-if($lef=="29/30"){$hh=$hh+1;goto xx;}
+if($lef=="29/30"){$hh=$hh+1;goto zz;}
 endwhile;
 ?>
