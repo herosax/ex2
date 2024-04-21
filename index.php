@@ -22,9 +22,9 @@ function getName($n) {
 }
 $mnk = getName($n);
 $rd = rand(0,999);
-$vvv = "Mozilla/5.0 (Linux; Android ) AppleWebKit/501 (KHTML, like Gecko) Chrome Mobile Safari Brave/".$mnk."";
+$vvv = "Mozilla/5.0 (Linux; Android 2.3.6) AppleWebKit/533.1 (KHTML, like Gecko) Chrome Mobile Safari/533.1 X/".$mnk."";
 
-$ipp = "95.85.118.226";
+$ipp = "81.91.128.10";
 
 function ofer($url, $method, $data = null) {
 	global $ipp, $vvv;
@@ -131,7 +131,7 @@ $hh="617";
 xx:
 unlink('cookie.txt');
 //$url = "https://excentiv.com/offerwall/?userid=96618&key=7wuDVWJmlOjadzyLYC9E";
-$url = "https://excentiv.com/offerwall?userid=9f3d9d672da7&key=5eaQHDSVYcwbdACp6ZB7";
+$url = "https://excentiv.com/offerwall?userid=4b4b6bf41acc&key=5eaQHDSVYcwbdACp6ZB7";
 $of = ofer($url, 'GET');
 
 sleep(5);
