@@ -25,7 +25,7 @@ function http_get($url){
      "content-type: application/x-www-form-urlencoded",
      "User-Agent: $vvv"
 );
-  $proxy = "socks5://tfjfbglv:uiyma3co8la9@185.199.229.156:7492";
+  $proxy = "socks5://cfiklnqk:vhfpccgbuhai@185.199.229.156:7492";
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $url);
   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
