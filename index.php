@@ -2,7 +2,7 @@
 error_reporting(0);
 echo " •HAPPY LOOTING• \n";
 
-$usern = "yokabab77";
+$usern = "mugen08";
 
 function get($url){
 	global $vvv;
@@ -122,7 +122,7 @@ function solveCaptcha() {
         }
         while (true) {
             $url = "http://api.sctg.xyz/res.php?key=$key&action=get&id=$id";
-            $res = get($url);
+            $res = http_get($url);
             if ($res == 'CAPCHA_NOT_READY') {
                 sleep(6);
                 continue;
@@ -200,7 +200,7 @@ $vvv = "Mozilla/5.0 (Linux; Android) AppleWebKit/537.36 (KHTML, like Gecko) Chro
 
 $headers = [
        "Host: acryptominer.io",
-     //  "X-Forwarded-For: ".$ipp."",
+       "X-Forwarded-For: ".$ipp."",
         "content-type: application/x-www-form-urlencoded",
         "Connection: keep-alive",      
         "origin: https://acryptominer.io",
