@@ -8,7 +8,10 @@ function get($url){
 	global $vvv;
 
   $header = array(
-     "User-Agent: $vvv"
+     "User-Agent: $vvv",
+     "Host: api.sctg.xyz",
+     "upgrade-insecure-requests: 1",
+     "Connection: keep-alive"
 );
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $url);
@@ -20,12 +23,14 @@ function get($url){
   return curl_exec($ch);
 }
 function http_get($url){
-	
+	global $vvv;
   $header = array(
-     "content-type: application/x-www-form-urlencoded",
-     "User-Agent: $vvv"
+     "User-Agent: $vvv",
+     "Host: api.sctg.xyz",
+     "upgrade-insecure-requests: 1",
+     "Connection: keep-alive"
 );
-  $proxy = "socks5://cwymqchp:4vnt8tl1gzs3@185.199.229.156:7492";
+  $proxy = "socks5://kabbesul:qmp4dftcd06c@185.199.229.156:7492";
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $url);
   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
@@ -39,74 +44,102 @@ function http_get($url){
   curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
   return curl_exec($ch);
 }
-function recpt(){
+function recpt() {
+    $sit = "6Lcd0SYpAAAAAPZk7LMsCwVld1y8gAGhjbbHM5x1";
+    $key = "LtPy3TlWHBZFzxJTJDdr3SNC1T4a9H6B";
+    $loginUrl = "http://api.sctg.xyz/in.php?key=$key&method=userrecaptcha&googlekey=$sit&json=1&pageurl=https://acryptominer.io/user/login";
 
-bb:
-$sit = "6Lcd0SYpAAAAAPZk7LMsCwVld1y8gAGhjbbHM5x1";
-$login = "http://sctg.xyz/in.php?key=LtPy3TlWHBZFzxJTJDdr3SNC1T4a9H6B&method=userrecaptcha&googlekey=".$sit."&json=1&pageurl=https://acryptominer.io/user/login";
-$result = get($login);
-$re = json_decode($result);
-$id = $re->request;
-if($id==''){goto bb;}
-cs:
-$url = "http://sctg.xyz/res.php?key=LtPy3TlWHBZFzxJTJDdr3SNC1T4a9H6B&action=get&id=".$id."";
-$res = http_get($url);
-if ($res == 'CAPCHA_NOT_READY') {          
-        sleep(6);
-        goto cs;
+    while (true) {        
+        $result = get($loginUrl);
+        $re = json_decode($result);
+        $id = $re->request ?? '';
+        if ($id == '') {
+            continue;
+        }
+        while (true) {
+            $url = "http://api.sctg.xyz/res.php?key=$key&action=get&id=$id";
+            $res = http_get($url);
+            if ($res == 'CAPCHA_NOT_READY') {
+                sleep(6);
+                continue;
+            }
+            if ($res == "ERROR_CAPTCHA_UNSOLVABLE") {
+                sleep(8);
+                break;
+            }
+            $cha = explode('|', $res);
+            if (isset($cha[1])) {
+                return $cha[1];
+            }
+            sleep(6);
+        }
     }
-if($res=="ERROR_CAPTCHA_UNSOLVABLE"){sleep(8);goto bb;}
-
-$cha = explode('|', $res);
-$captcha = $cha[1];
-if($captcha == ""){goto cs;}
-return $captcha;
-}
-function solve(){
-aas:
-$sit = "6Lcd0SYpAAAAAPZk7LMsCwVld1y8gAGhjbbHM5x1";
-$login = "http://sctg.xyz/in.php?key=LtPy3TlWHBZFzxJTJDdr3SNC1T4a9H6B&method=userrecaptcha&googlekey=".$sit."&json=1&pageurl=https://acryptominer.io/user/faucet";
-$result = get($login);
-$re = json_decode($result);
-$id = $re->request;
-if($id==''){goto aas;}
-ccs:
-$url = "http://sctg.xyz/res.php?key=LtPy3TlWHBZFzxJTJDdr3SNC1T4a9H6B&action=get&id=".$id."";
-$res = http_get($url);
-if ($res == 'CAPCHA_NOT_READY') {          
-        sleep(6);
-        goto ccs;
-    }
-if($res=="ERROR_CAPTCHA_UNSOLVABLE"){sleep(8);goto aas;}
-
-$cha = explode('|', $res);
-$captcha = $cha[1];
-if($captcha == ""){goto ccs;}
-return $captcha;
 }
 
-function solveCaptcha(){
+function solve() {
+    $sit = "6Lcd0SYpAAAAAPZk7LMsCwVld1y8gAGhjbbHM5x1";
+    $key = "LtPy3TlWHBZFzxJTJDdr3SNC1T4a9H6B";
+    $loginUrl = "http://api.sctg.xyz/in.php?key=$key&method=userrecaptcha&googlekey=$sit&json=1&pageurl=https://acryptominer.io/user/faucet";
+
+    while (true) {        
+        $result = get($loginUrl);
+        $re = json_decode($result);
+        $id = $re->request ?? '';
+        if ($id == '') {
+            continue;
+        }
+        while (true) {
+            $url = "http://api.sctg.xyz/res.php?key=$key&action=get&id=$id";
+            $res = http_get($url);
+            if ($res == 'CAPCHA_NOT_READY') {
+                sleep(6);
+                continue;
+            }
+            if ($res == "ERROR_CAPTCHA_UNSOLVABLE") {
+                sleep(8);
+                break;
+            }
+            $cha = explode('|', $res);
+            if (isset($cha[1])) {
+                return $cha[1];
+            }
+            sleep(6);
+        }
+    }
+}
+function solveCaptcha() {
 	global $site;
-ay:
-$login = "http://sctg.xyz/in.php?key=LtPy3TlWHBZFzxJTJDdr3SNC1T4a9H6B&method=turnstile&sitekey=".$site."&json=1&pageurl=https://acryptominer.io/user/faucet";
-$result = get($login);
-$re = json_decode($result);
-$id = $re->request;
-if($id==''){goto ay;}
-cy:
-$url = "http://sctg.xyz/res.php?key=LtPy3TlWHBZFzxJTJDdr3SNC1T4a9H6B&action=get&id=".$id."";
-$res = get($url);
-if ($res == 'CAPCHA_NOT_READY') {          
-        sleep(6);
-        goto cy;
-    }
-if($res=="ERROR_CAPTCHA_UNSOLVABLE"){sleep(8);goto ay;}
-$cha = explode('|', $res);
-$captcha = $cha[1];
-if($captcha == ""){goto cy;}
+	
+    $key = "LtPy3TlWHBZFzxJTJDdr3SNC1T4a9H6B";
+    $loginUrl = "http://api.sctg.xyz/in.php?key=$key&method=turnstile&sitekey=".$site."&json=1&pageurl=https://acryptominer.io/user/faucet";
 
-return $captcha;
+    while (true) {        
+        $result = get($loginUrl);
+        $re = json_decode($result);
+        $id = $re->request ?? '';
+        if ($id == '') {
+            continue;
+        }
+        while (true) {
+            $url = "http://api.sctg.xyz/res.php?key=$key&action=get&id=$id";
+            $res = get($url);
+            if ($res == 'CAPCHA_NOT_READY') {
+                sleep(6);
+                continue;
+            }
+            if ($res == "ERROR_CAPTCHA_UNSOLVABLE") {
+                sleep(8);
+                break;
+            }
+            $cha = explode('|', $res);
+            if (isset($cha[1])) {
+                return $cha[1];
+            }
+            sleep(6);
+        }
+    }
 }
+
 
 
 function http_request($url, $method = 'GET', $data = null, $headers = []) {
@@ -220,6 +253,7 @@ $res = explode('",',explode('message: "', $pot)[1])[0];
 date_default_timezone_set('Asia/Jakarta');
 $timestamp = time();
 $wak = date("[H:i]", $timestamp);
+if (strpos($res, "Max") !== false) {echo" ".$wak." ".$res." Max Daily!!\n";sleep(999999);}
 if (strpos($res, "successfully") !== false) {echo" ".$wak." ".$res." \n";}else{echo " Claim Gagal! ".$res." \n";sleep(60);goto zz;}
 $tim = explode(';',explode('var timeUntilNextClaim = ', $pot)[1])[0];
 if ($tim > 0) {
