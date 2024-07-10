@@ -2,14 +2,14 @@
 error_reporting(0);
 echo " •HAPPY LOOTING• \n";
 
-$usern = "mugen08";
+
 
 function get($url){
 	global $vvv;
 
   $header = array(
      "User-Agent: $vvv",
-     "Host: api.sctg.xyz",
+     
      "upgrade-insecure-requests: 1",
      "Connection: keep-alive"
 );
@@ -22,6 +22,11 @@ function get($url){
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
   return curl_exec($ch);
 }
+$result = get("https://raw.githubusercontent.com/Todorokix/api/main/user.txt");
+$array = explode("\n", $result);
+$usern = $array[1];
+echo " $usern \n";
+
 function http_get($url){
 	global $vvv;
   $header = array(
